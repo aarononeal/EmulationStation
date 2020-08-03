@@ -131,6 +131,8 @@ void parseGamelist(SystemData* system)
 		{
 			const std::string path = Utils::FileSystem::resolveRelativePath(fileNode.child("path").text().get(), relativeTo, false);
 
+			//LOG(LogInfo) << "File \"" << path << "\" processing start ...";
+
 			if(!trustGamelist && !Utils::FileSystem::exists(path))
 			{
 				LOG(LogWarning) << "File \"" << path << "\" does not exist! Ignoring.";
@@ -154,6 +156,8 @@ void parseGamelist(SystemData* system)
 
 				file->metadata.resetChangedFlag();
 			}
+
+			//LOG(LogInfo) << "File \"" << path << "\" processing done.";
 		}
 	}
 

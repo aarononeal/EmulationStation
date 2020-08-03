@@ -107,6 +107,18 @@ void parseGamelist(SystemData* system)
 		return;
 	}
 
+	LOG(LogInfo) << "Processing XML file \"" << xmlpath << "\"...";
+
+	if (!trustGamelist)
+	{
+		LOG(LogWarning) << "trustGameList was not set, processing will check the filesystem for each file and may be slow!";
+	}
+	else
+	{
+		LOG(LogInfo) << "trustGameList was set";
+	}
+	Log().flush();
+
 	std::string relativeTo = system->getStartPath();
 
 	const char* tagList[2] = { "game", "folder" };
@@ -144,6 +156,9 @@ void parseGamelist(SystemData* system)
 			}
 		}
 	}
+
+	LOG(LogInfo) << "Done processing XML file \"" << xmlpath << "\".";
+	Log().flush();
 }
 
 void addFileDataNode(pugi::xml_node& parent, const FileData* file, const char* tag, SystemData* system)
